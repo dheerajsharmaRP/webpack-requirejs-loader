@@ -1,7 +1,7 @@
 {
   "name": "@sdinteractive/requirejs-loader",
-  "version": "3.0.1",
-  "description": "webpack loader to import requirejs browser published modules.",
+  "version": "4.0.0",
+  "description": "webpack loader to import requirejs browser published modules. Supports webpack 4 and webpack 5.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
