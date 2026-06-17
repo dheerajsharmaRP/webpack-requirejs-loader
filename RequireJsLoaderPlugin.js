@@ -9,11 +9,15 @@ function isNormalModule(module) {
     return Boolean(module && typeof module.request === 'string' && module.rawRequest != null);
 }
 
+function normalizeRequest(rawRequest) {
+    return rawRequest.replace(/^mixins!/, '').replace(/\.js$/, '');
+}
+
 function gatherRequireJsImports(modules) {
     let needsImport = [];
     for (let module of modules) {
         if (isNormalModule(module) && String(module.request).indexOf('requirejs-loader') !== -1) {
-            needsImport.push('mixins!' + module.rawRequest);
+            needsImport.push('mixins!' + normalizeRequest(module.rawRequest));
         }
     }
 
@@ -78,7 +82,7 @@ RequireJsLoaderPlugin.prototype.apply = function (compiler) {
 
                 const modules = chunk.modulesIterable ? Array.from(chunk.modulesIterable) : [];
                 const needsImport = gatherRequireJsImports(modules);
-                
+
                 if (needsImport.length !== 0) {
                     let prolog = generateProlog(needsImport);
                     let epilog = generateEpilog(needsImport);

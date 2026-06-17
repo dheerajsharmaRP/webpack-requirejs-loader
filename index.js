@@ -1,7 +1,7 @@
 'use strict';
 
 const path = require('path');
-const ConcatSource = require('webpack-sources').ConcatSource;
+const { ConcatSource } = require('webpack-sources');
 
 module.exports = function () {
 };
