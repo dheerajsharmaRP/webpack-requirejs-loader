@@ -93,7 +93,8 @@ RequireJsLoaderPlugin.prototype.apply = function (compiler) {
 
                     compilation.assets[filename] = new ConcatSource(prolog, "\n", compilation.assets[filename], "\n", epilog);
                 }
-            });
+
+                chunk['--requirejs-export:done'] = true;
         });
     }
 };
