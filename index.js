@@ -1,8 +1,5 @@
 'use strict';
 
-const path = require('path');
-const { ConcatSource } = require('webpack-sources');
-
 module.exports = function () {
 };
 
@@ -16,7 +13,7 @@ module.exports.pitch = function (remainingRequest) {
 
     if (requestName === 'jquery') {
         const jqueryRequest = JSON.stringify('mixins!' + requestName);
-        return `module.exports = window.jQuery || window.$ || window.require(${jqueryRequest});`;
+        return `module.exports = window.jQuery || window.$ || (typeof window.require === 'function' ? window.require(${jqueryRequest}) : undefined);`;
     }
 
     const jsonName = JSON.stringify('mixins!' + requestName);

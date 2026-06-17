@@ -10,7 +10,7 @@ function isNormalModule(module) {
 }
 
 function normalizeRequest(rawRequest) {
-    return rawRequest.replace(/^mixins!/, '').replace(/\.js$/, '');
+    return String(rawRequest).replace(/^mixins!/, '').replace(/\.js$/, '');
 }
 
 function gatherRequireJsImports(modules) {
@@ -95,6 +95,7 @@ RequireJsLoaderPlugin.prototype.apply = function (compiler) {
                 }
 
                 chunk['--requirejs-export:done'] = true;
+            });
         });
     }
 };
