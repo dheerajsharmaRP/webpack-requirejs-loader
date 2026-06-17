@@ -46,6 +46,8 @@ RequireJsLoaderPlugin.prototype.apply = function (compiler) {
                     stage: Compilation.PROCESS_ASSETS_STAGE_SUMMARIZE,
                 },
                 () => {
+                    const processedFiles = new Set();
+
                     for (const chunk of compilation.chunks) {
                         const chunkModules = Array.from(
                             compilation.chunkGraph.getChunkModulesIterable(chunk)
@@ -60,7 +62,9 @@ RequireJsLoaderPlugin.prototype.apply = function (compiler) {
 
                         for (const filename of chunk.files) {
                             if (!filename.endsWith('.js')) continue;
+                            if (processedFiles.has(filename)) continue;
 
+                            processedFiles.add(filename);
                             compilation.updateAsset(
                                 filename,
                                 (old) => new ConcatSource(prolog, '\n', old, '\n', epilog)
